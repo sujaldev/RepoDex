@@ -19,6 +19,7 @@ export default function Root() {
                     <LeftBar leftBarActive={leftBarActive}/>
                     <div className={"flex flex-col flex-grow"}>
                         <CategoryView/>
+                        <RepositoryView/>
                     </div>
                 </div>
             </Flowbite>
