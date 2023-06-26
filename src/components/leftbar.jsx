@@ -24,7 +24,7 @@ export default function LeftBar({leftBarActive, setRepositories}) {
         <Sidebar
             id={"leftbar"}
             className={
-                "min-w-[14vw] z-50 border-r border-gray-300 dark:border-gray-700 -translate-x-full sm:translate-x-0 fixed sm:relative transition-transform" + (
+                "min-w-[280px] max-w-[280px] z-50 border-r border-gray-300 dark:border-gray-700 -translate-x-full sm:translate-x-0 fixed sm:relative transition-transform" + (
                     leftBarActive ? " transform-none" : ""
                 )
         }>
