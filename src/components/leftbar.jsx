@@ -35,6 +35,7 @@ export default function LeftBar({leftBarActive, setRepositories}) {
                     className={"pt-0.5"}
                     onChange={event => setUsername(event.target.value)}
                     value={username}
+                    required={true}
                 />
                 <Button type={"submit"} color={"gray"}>
                     {isLoading ? <Spinner/> : <FontAwesomeIcon icon={faSearch} className={"py-1"}/>}
