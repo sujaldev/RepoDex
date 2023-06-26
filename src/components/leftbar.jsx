@@ -8,7 +8,7 @@ export default function LeftBar({leftBarActive}) {
         <Sidebar
             id={"leftbar"}
             className={
-                "border-r border-gray-200 dark:border-gray-700 -translate-x-full sm:translate-x-0 fixed sm:relative transition-transform" + (
+                "border-r border-gray-300 dark:border-gray-700 -translate-x-full sm:translate-x-0 fixed sm:relative transition-transform" + (
                     leftBarActive ? " transform-none" : ""
                 )
         }>

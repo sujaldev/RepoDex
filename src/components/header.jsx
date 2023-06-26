@@ -5,7 +5,7 @@ import {faBars, faClose} from "@fortawesome/free-solid-svg-icons";
 
 export default function Header({leftBarActive, toggleLeftBar}) {
     return (
-        <Navbar fluid className={"border-b border-gray-200 dark:border-gray-700 px-4"}>
+        <Navbar fluid className={"border-b border-gray-300 dark:border-gray-700 px-4"}>
             <Navbar.Brand>
                 <h1 className={"text-xl text-gray-600 dark:text-gray-300 font-bold"}>RepoDex</h1>
             </Navbar.Brand>
