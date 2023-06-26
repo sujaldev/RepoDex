@@ -4,6 +4,8 @@ import {useState} from "react";
 import {Flowbite} from "flowbite-react";
 import Header from "../components/header.jsx";
 import LeftBar from "../components/leftbar.jsx";
+import CategoryView from "../components/categoryView.jsx";
+import RepositoryView from "../components/repositoryView.jsx";
 
 export default function Root() {
     let isDark = localStorage.getItem("theme") === "dark";
@@ -15,7 +17,9 @@ export default function Root() {
                 <Header leftBarActive={leftBarActive === true} toggleLeftBar={() => setLeftBarActive(!leftBarActive)}/>
                 <div className={"flex flex-grow"}>
                     <LeftBar leftBarActive={leftBarActive}/>
-                    <div className={"p-4"}></div>
+                    <div className={"flex flex-col flex-grow"}>
+                        <CategoryView/>
+                    </div>
                 </div>
             </Flowbite>
         </div>
