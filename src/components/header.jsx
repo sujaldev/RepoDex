@@ -18,7 +18,12 @@ export default function Header({leftBarActive, toggleLeftBar}) {
                 </Tooltip>
 
                 <Tooltip content={"Toggle dark mode"}>
-                    <DarkThemeToggle/>
+                    <DarkThemeToggle onMouseUp={() => {
+                        localStorage.setItem(
+                            "theme",
+                            document.getElementsByTagName("html")[0].classList.contains("dark") ? "light" : "dark"
+                        );
+                    }}/>
                 </Tooltip>
 
                 <button onClick={() => toggleLeftBar()} className={"block sm:hidden"}>
