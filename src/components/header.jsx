@@ -24,7 +24,9 @@ export default function Header({leftBarActive, toggleLeftBar}) {
                 <button onClick={() => toggleLeftBar()} className={"block sm:hidden"}>
                     <FontAwesomeIcon
                         className={
-                            "dark:text-white text-xl active:text-gray-500 active:dark:text-gray-400"
+                            "dark:text-white text-xl active:text-gray-500 active:dark:text-gray-400" + (
+                                leftBarActive ? " mr-0.5" : ""
+                            )
                         }
                         icon={leftBarActive ? faClose : faBars}
                     />
