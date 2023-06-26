@@ -1,56 +1,71 @@
 import {useState} from "react";
-import {TextInput} from "flowbite-react";
+import {Button, Table, TextInput} from "flowbite-react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faExternalLink} from "@fortawesome/free-solid-svg-icons";
+import {faCheck, faEdit, faExternalLink} from "@fortawesome/free-solid-svg-icons";
 
 
-function Repository ({details}) {
+function RepoCell({repo}) {
+    const [isEditing, setIsEditing] = useState(false)
     return (
-        <div className={
-            "bg-gray-100 dark:bg-gray-700 border rounded-xl border-gray-300 dark:border-gray-600 " +
-            "text-center align-center text-gray-800 dark:text-gray-100 select-none text-ellipsis " +
-            "py-2 px-4"}
-        >
-            <span className={"mr-3"}>{details.name}</span>
-            <a href={details.html_url} target={"_blank"}><FontAwesomeIcon icon={faExternalLink}/></a>
-        </div>
+        <Table.Row>
+            <Table.Cell className={"whitespace-nowrap font-medium text-gray-900 dark:text-white"}>
+                <span className={"mr-4"}>{repo.name}</span>
+                <a href={repo.html_url} target={"_blank"}><FontAwesomeIcon icon={faExternalLink}/></a>
+            </Table.Cell>
+            <Table.Cell className={"flex flex-grow flex-row gap-4"}>
+                <TextInput disabled={!isEditing} value={repo.description}/>
+                <Button onClick={() => {setIsEditing(!isEditing)}} color={"gray"} className={"py-1 px-0"}>
+                    {isEditing ? <FontAwesomeIcon icon={faCheck}/> : <FontAwesomeIcon icon={faEdit}/>}
+                </Button>
+            </Table.Cell>
+            <Table.Cell></Table.Cell>
+        </Table.Row>
+    )
+}
+
+function RepoTable ({repositories}) {
+    const [filterText, setFilterText] = useState("");
+    return (
+        <Table striped>
+            <Table.Head>
+                <Table.HeadCell>Name</Table.HeadCell>
+                <Table.HeadCell>Description</Table.HeadCell>
+                <Table.HeadCell className={"flex justify-end"}>
+                    <TextInput
+                        type={"text"}
+                        placeholder={"Filter"}
+                        onChange={event => setFilterText(event.target.value)}
+                        value={filterText}
+                        className={"max-w-[250px]"}
+                    />
+                </Table.HeadCell>
+            </Table.Head>
+            <Table.Body className={""}>
+                {repositories.map((repo, i) => {
+                    return ((
+                        filterText === "" || repo.name.toLowerCase().includes(filterText.toLowerCase()
+                        ) ? <RepoCell repo={repo} key={i}/>: undefined))
+                })}
+            </Table.Body>
+        </Table>
     )
 }
 
 export default function RepositoryView ({repositories, setRepositories}) {
-    let messageStyle = "flex-grow self-center text-center text-2xl font-black text-gray-400 dark:text-gray-600"
+    let messageStyle = "flex flex-grow justify-center items-center text-2xl font-black text-gray-400 dark:text-gray-600"
 
-    const [filterText, setFilterText] = useState("");
 
     return (
-        <div className={"flex flex-col flex-grow max-h-[50vh]"}>
-            <div className={"border-b border-gray-300 dark:border-gray-700 p-2"}>
-                <TextInput
-                    type={"text"}
-                    placeholder={"Filter"}
-                    onChange={event => setFilterText(event.target.value)}
-                    value={filterText}
-                    className={"max-w-[250px]"}
-                />
-            </div>
-
-            <div className={"flex flex-grow overflow-y-auto"}>
-                {(() => {
-                    if (Object.getOwnPropertyNames(repositories).length === 0) {
-                        return (<p className={messageStyle}>Repository view</p>)
-                    } else if (repositories.message === "Not Found") {
-                        return (<p className={messageStyle}>No such user!</p>)
-                    } else {
-                        return (
-                            <span className={"flex gap-5 flex-row flex-wrap content-start p-5"}>{repositories.map((repo, i) => {
-                                return ((
-                                    filterText === "" || repo.name.toLowerCase().includes(filterText.toLowerCase())
-                                ) ? <Repository details={repo} key={i}/> : undefined)
-                            })}</span>
-                        )
-                    }
-                })()}
-            </div>
+        <div className={"flex flex-grow flex-col overflow-y-auto p-2 max-h-[46vh]"}>
+            {(() => {
+                if (Object.getOwnPropertyNames(repositories).length === 0) {
+                    return (<p className={messageStyle}>Repository view</p>)
+                } else if (repositories.message === "Not Found") {
+                    return (<p className={messageStyle}>No such user!</p>)
+                } else {
+                    return (<RepoTable repositories={repositories}/>)
+                }
+            })()}
         </div>
     )
 }
