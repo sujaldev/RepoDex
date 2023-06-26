@@ -40,7 +40,7 @@ export default function RepositoryView ({repositories, setRepositories}) {
                         return (
                             <span className={"flex gap-5 flex-row flex-wrap content-start p-5"}>{repositories.map((repo, i) => {
                                 return ((
-                                    filterText === "" || repo.name.toLowerCase().includes(filterText)
+                                    filterText === "" || repo.name.toLowerCase().includes(filterText.toLowerCase())
                                 ) ? <Repository details={repo} key={i}/> : undefined)
                             })}</span>
                         )
