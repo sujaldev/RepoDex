@@ -1,5 +1,7 @@
 import {useState} from "react";
-import {Navbar, TextInput} from "flowbite-react";
+import {TextInput} from "flowbite-react";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faExternalLink} from "@fortawesome/free-solid-svg-icons";
 
 
 function Repository ({details}) {
@@ -9,7 +11,8 @@ function Repository ({details}) {
             "text-center align-center text-gray-800 dark:text-gray-100 select-none text-ellipsis " +
             "py-2 px-4"}
         >
-            <a href={details.html_url} target={"_blank"}>{details.name}</a>
+            <span className={"mr-3"}>{details.name}</span>
+            <a href={details.html_url} target={"_blank"}><FontAwesomeIcon icon={faExternalLink}/></a>
         </div>
     )
 }
@@ -21,14 +24,15 @@ export default function RepositoryView ({repositories, setRepositories}) {
 
     return (
         <div className={"flex flex-col flex-grow max-h-[50vh]"}>
-            <Navbar className={"border-b border-gray-300 dark:border-gray-700 py-1"}>
+            <div className={"border-b border-gray-300 dark:border-gray-700 p-2"}>
                 <TextInput
                     type={"text"}
                     placeholder={"Filter"}
                     onChange={event => setFilterText(event.target.value)}
                     value={filterText}
+                    className={"max-w-[250px]"}
                 />
-            </Navbar>
+            </div>
 
             <div className={"flex flex-grow overflow-y-auto"}>
                 {(() => {
